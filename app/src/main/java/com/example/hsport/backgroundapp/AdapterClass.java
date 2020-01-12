@@ -1,17 +1,24 @@
 package com.example.hsport.backgroundapp;
 
+import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder> {
@@ -29,10 +36,19 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String url;
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        final String url;
         url = list.get(position).getWallpaper();
         Glide.with(holder.imageView).load(url).into(holder.imageView);
+
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), " Nember : " + position, Toast.LENGTH_SHORT).show();
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(view.getContext());
+
+            }
+        });
     }
 
     @Override
